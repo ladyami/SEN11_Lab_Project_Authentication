@@ -1,154 +1,270 @@
 # SEN 311 Lab - Flask Authentication System
 
-A secure web application built with Flask that features user authentication with password hashing, MySQL database integration, and a responsive Bootstrap 5 design with dark/light mode support.
+A secure web application built with **Flask** that features user authentication, password hashing, MySQL database integration, and a responsive **Bootstrap 5** interface with dark/light mode support.
 
 ## 🚀 Live Demo
 
-[View Live Application](https://sen-11-lab-project-authentication.vercel.app/)
+🔗 https://sen-11-lab-project-authentication.vercel.app/
+
+---
 
 ## 📋 Features
 
-- **User Registration** - Create new accounts with password strength validation
-- **User Login** - Secure authentication with session management
-- **Password Hashing** - Passwords are hashed using Werkzeug before storage
-- **MySQL Integration** - Remote database connection using PyMySQL
-- **Dark/Light Mode** - Theme toggle with persistent preference storage
-- **Responsive Design** - Bootstrap 5 with Miva University color palette
-- **Dashboard** - User profile page after successful login
-- **Session Management** - Secure logout functionality
+- 🔐 User Registration with password validation
+- 🔑 Secure User Login with session management
+- 🛡️ Password Hashing using Werkzeug
+- 🗄️ MySQL Database Integration
+- 🌙 Dark & Light Mode with saved user preference
+- 📱 Responsive Bootstrap 5 UI
+- 👤 User Dashboard
+- 🚪 Secure Logout
+- ☁️ Deployed on Vercel
+
+---
 
 ## 🛠️ Technologies Used
 
 | Technology | Purpose |
 |------------|---------|
-| **Flask** | Web framework |
-| **PyMySQL** | MySQL database connector |
-| **Werkzeug** | Password hashing |
-| **Bootstrap 5** | Frontend styling |
-| **Bootstrap Icons** | Icon library |
-| **python-dotenv** | Environment variable management |
-| **Vercel** | Deployment platform |
-| **FreeDB** | Remote MySQL hosting |
+| Flask | Web Framework |
+| PyMySQL | MySQL Database Connector |
+| Werkzeug | Password Hashing |
+| Bootstrap 5 | Frontend Styling |
+| Bootstrap Icons | Icons |
+| python-dotenv | Environment Variables |
+| MySQL | Database |
+| FreeDB | Remote MySQL Hosting |
+| Vercel | Deployment |
 
-## 📁 Project Structure
+---
 
+# 📁 Project Structure
+
+```text
 SEN11_Lab_Project/
 │
-├── app.py                 # Main Flask application (✅ MUST be in root)
-├── requirements.txt       # Python dependencies (✅ MUST be in root)
-├── vercel.json           # Vercel deployment config (✅ MUST be in root)
-├── .env                  # Environment variables (✅ MUST be in root)
-├── .gitignore            # Git ignore rules (✅ MUST be in root)
-├── README.md             # Project documentation (✅ MUST be in root)
+├── app.py                  # Main Flask application
+├── requirements.txt        # Python dependencies
+├── vercel.json             # Vercel configuration
+├── .env                    # Environment variables
+├── .gitignore
+├── README.md
 │
-├── static/               # Static files folder (✅ MUST be at root level)
-│   └── style.css         # Your custom CSS
+├── static/
+│   └── style.css
 │
-└── templates/            # Template folder (✅ MUST be at root level)
-    ├── index.html        # Homepage
-    ├── signup.html       # Registration page
-    ├── signin.html       # Login page
-    └── dashboard.html    # User dashboard
+└── templates/
+    ├── index.html
+    ├── signup.html
+    ├── signin.html
+    └── dashboard.html
+```
 
-## 🔧 Installation
+---
 
-### Prerequisites
+# 🔧 Installation
+
+## Prerequisites
 
 - Python 3.10+
-- MySQL database (local or remote)
 - Git
+- MySQL Database (Local or Remote)
 
-### Local Setup
+---
 
-1. **Clone the repository:**
-   
---bash
+## Clone the Repository
+
+```bash
 git clone https://github.com/YOUR_USERNAME/SEN11_Lab_Project.git
+
 cd SEN11_Lab_Project
+```
 
-Create and activate a virtual environment:
-# Windows
+---
+
+## Create a Virtual Environment
+
+### Windows
+
+```bash
 python -m venv venv
+
 venv\Scripts\activate
+```
 
-# Mac/Linux
+### macOS / Linux
+
+```bash
 python3 -m venv venv
+
 source venv/bin/activate
+```
 
-Install dependencies:
+---
+
+## Install Dependencies
+
+```bash
 pip install -r requirements.txt
+```
 
+---
 
-Create .env file:
+## Configure Environment Variables
+
+Create a `.env` file in the project root.
+
+```env
 SECRET_KEY=your-secret-key-here
+
 MYSQL_HOST=sql.freedb.tech
 MYSQL_USER=your_db_username
 MYSQL_PASSWORD=your_db_password
 MYSQL_DB=your_database_name
+```
 
-Set up database:
+---
+
+## Create the Database
+
+```sql
 CREATE DATABASE your_database_name;
+
 USE your_database_name;
+
 CREATE TABLE tbl_user (
     id INT AUTO_INCREMENT PRIMARY KEY,
     username VARCHAR(50) NOT NULL UNIQUE,
     password VARCHAR(255) NOT NULL,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
+```
 
-Run the application:
+---
+
+## Run the Application
+
+```bash
 python app.py
+```
 
+Open your browser and visit:
 
-📝 License
-This project is for educational purposes as part of SEN 311 - Web Application Development.
+```
+http://127.0.0.1:5000
+```
 
-👤 Author
-Student Name - Amina Oyegoke
+---
 
-Miva Open University
+# 🚀 Deployment
 
-🙏 Acknowledgments
-Miva Open University for the SEN 311 course
+The project is deployed on **Vercel**.
 
-FreeDB for free MySQL hosting
+Live URL:
 
-Vercel for the deployment platform
+https://sen-11-lab-project-authentication.vercel.app/
 
+---
 
+# 📸 Screenshots
 
+You can add screenshots here.
 
+Example:
 
-## How to Contribute
+```markdown
+![Home Page](screenshots/home.png)
+
+![Login](screenshots/login.png)
+
+![Dashboard](screenshots/dashboard.png)
+```
+
+---
+
+# 🤝 Contributing
+
+Contributions are welcome.
 
 1. Fork the repository
-2. Create a feature branch (`git checkout -b feature/amazing-feature`)
-3. Commit your changes (`git commit -m 'Add some amazing feature'`)
-4. Push to the branch (`git push origin feature/amazing-feature`)
+
+2. Create a feature branch
+
+```bash
+git checkout -b feature/my-feature
+```
+
+3. Commit your changes
+
+```bash
+git commit -m "Add new feature"
+```
+
+4. Push to GitHub
+
+```bash
+git push origin feature/my-feature
+```
+
 5. Open a Pull Request
 
-## Code Style
+---
 
-- Follow PEP 8 guidelines
-- Add comments for complex logic
-- Keep HTML templates clean and readable
+# 🧪 Testing
 
-## Testing
+Before deployment, ensure that:
 
-- Test all routes locally before submitting
-- Ensure dark/light mode works on all pages
-- Verify database connections
+- User registration works
+- Login authentication works
+- Passwords are hashed
+- Dashboard loads after login
+- Logout clears the session
+- Dark/Light mode works correctly
+- Database connection is successful
 
-## MIT License
+---
 
-Copyright (c) 2026 SEN 311 Lab
+# 📖 Code Style
+
+- Follow **PEP 8**
+- Keep functions small and readable
+- Add comments where necessary
+- Keep HTML templates organized
+
+---
+
+# 👨‍💻 Author
+
+**Amina Oyegoke**
+
+Software Engineering Student  
+Miva Open University
+
+---
+
+# 🙏 Acknowledgments
+
+- Miva Open University
+- SEN 311 – Web Application Development
+- Flask Documentation
+- Bootstrap
+- FreeDB
+- Vercel
+
+---
+
+# 📄 License
+
+MIT License
+
+Copyright (c) 2026 Amina Oyegoke
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including, without limitation, the rights
+in the Software without restriction, including without limitation the rights
 to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
+copies of the Software, and to permit persons to whom the Software is furnished
+to do so, subject to the following conditions:
 
 The above copyright notice and this permission notice shall be included in all
 copies or substantial portions of the Software.
@@ -160,4 +276,3 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
-
