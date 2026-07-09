@@ -61,7 +61,8 @@ SEN11_Lab_Project/
 ### Local Setup
 
 1. **Clone the repository:**
-```bash
+   
+--bash
 git clone https://github.com/YOUR_USERNAME/SEN11_Lab_Project.git
 cd SEN11_Lab_Project
 
@@ -112,18 +113,11 @@ Miva Open University for the SEN 311 course
 
 FreeDB for free MySQL hosting
 
-Vercel for deployment platform
+Vercel for the deployment platform
 
 
 
----
 
-## 📦 Additional Files (Optional but Recommended)
-
-### Create `CONTRIBUTING.md`
-
-```markdown
-# Contributing to SEN 311 Lab Project
 
 ## How to Contribute
 
@@ -151,7 +145,7 @@ Copyright (c) 2026 SEN 311 Lab
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
+in the Software without restriction, including, without limitation, the rights
 to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
 copies of the Software, and to permit persons to whom the Software is
 furnished to do so, subject to the following conditions:
