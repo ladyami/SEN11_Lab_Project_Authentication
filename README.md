@@ -166,19 +166,7 @@ https://sen-11-lab-project-authentication.vercel.app/
 
 ---
 
-# 📸 Screenshots
 
-You can add screenshots here.
-
-Example:
-
-```markdown
-![Home Page](screenshots/home.png)
-
-![Login](screenshots/login.png)
-
-![Dashboard](screenshots/dashboard.png)
-```
 
 ---
 
