@@ -33,20 +33,22 @@ A secure web application built with Flask that features user authentication with
 ## 📁 Project Structure
 
 SEN11_Lab_Project/
-├── app.py # Main Flask application
-├── requirements.txt # Python dependencies
-├── vercel.json # Vercel deployment config
-├── .env # Environment variables (not in repo)
-├── .gitignore # Git ignore rules
-├── static/
-│ └── style.css # Custom CSS styles
-├── templates/
-│ ├── index.html # Homepage
-│ ├── signup.html # Registration page
-│ ├── signin.html # Login page
-│ └── dashboard.html # User dashboard
-└── README.md # Project documentation
-
+│
+├── app.py                 # Main Flask application (✅ MUST be in root)
+├── requirements.txt       # Python dependencies (✅ MUST be in root)
+├── vercel.json           # Vercel deployment config (✅ MUST be in root)
+├── .env                  # Environment variables (✅ MUST be in root)
+├── .gitignore            # Git ignore rules (✅ MUST be in root)
+├── README.md             # Project documentation (✅ MUST be in root)
+│
+├── static/               # Static files folder (✅ MUST be at root level)
+│   └── style.css         # Your custom CSS
+│
+└── templates/            # Template folder (✅ MUST be at root level)
+    ├── index.html        # Homepage
+    ├── signup.html       # Registration page
+    ├── signin.html       # Login page
+    └── dashboard.html    # User dashboard
 
 ## 🔧 Installation
 
@@ -143,7 +145,7 @@ Vercel for deployment platform
 - Ensure dark/light mode works on all pages
 - Verify database connections
 
-MIT License
+## MIT License
 
 Copyright (c) 2026 SEN 311 Lab
 
