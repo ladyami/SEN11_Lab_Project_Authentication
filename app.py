@@ -30,8 +30,8 @@ def get_db_connection():
             password=os.getenv('MYSQL_PASSWORD', ''),
             database=os.getenv('MYSQL_DB', 'flask_db'),
             cursorclass=DictCursor,
-            ssl={'ca': ''},  # Required for FreeDB/PlanetScale
-            connect_timeout=10  # Add timeout
+             ssl=None,
+            connect_timeout=10  #  timeout
         )
         return connection
     except Exception as e:
