@@ -4,6 +4,7 @@ from dotenv import load_dotenv
 import os
 import pymysql
 from pymysql.cursors import DictCursor
+import sys
 
 # ============================================
 # LOAD ENVIRONMENT VARIABLES
@@ -15,21 +16,27 @@ app = Flask(__name__)
 # ============================================
 # SECRET KEY (from .env)
 # ============================================
-app.secret_key = os.getenv('SECRET_KEY')
+app.secret_key = os.getenv('SECRET_KEY', 'fallback-secret-key-for-dev')
 
 # ============================================
-# DATABASE CONNECTION FUNCTION (PyMySQL)
+# DATABASE CONNECTION FUNCTION
 # ============================================
 def get_db_connection():
     """Create and return a database connection using PyMySQL."""
-    return pymysql.connect(
-        host=os.getenv('MYSQL_HOST', 'localhost'),
-        user=os.getenv('MYSQL_USER', 'root'),
-        password=os.getenv('MYSQL_PASSWORD', ''),
-        database=os.getenv('MYSQL_DB', 'flask_db'),
-        cursorclass=DictCursor,
-        ssl={'ca': ''}  # Required for FreeDB/PlanetScale
-    )
+    try:
+        connection = pymysql.connect(
+            host=os.getenv('MYSQL_HOST', 'localhost'),
+            user=os.getenv('MYSQL_USER', 'root'),
+            password=os.getenv('MYSQL_PASSWORD', ''),
+            database=os.getenv('MYSQL_DB', 'flask_db'),
+            cursorclass=DictCursor,
+            ssl={'ca': ''},  # Required for FreeDB/PlanetScale
+            connect_timeout=10  # Add timeout
+        )
+        return connection
+    except Exception as e:
+        print(f"❌ Database connection error: {str(e)}", file=sys.stderr)
+        raise
 
 # ============================================
 # HOME ROUTE
@@ -43,7 +50,7 @@ def home():
 # ============================================
 @app.route('/signup', methods=['GET', 'POST'])
 def signup():
-    # Clear any old flash messages before showing new ones
+    # Clear any old flash messages
     session.pop('_flashes', None)
     message = ""
     
@@ -60,32 +67,37 @@ def signup():
         elif len(password) < 8:
             message = "❌ Password must be at least 8 characters!"
         else:
-            # Get database connection
-            connection = get_db_connection()
             try:
-                with connection.cursor() as cur:
-                    # Check if username already exists
-                    cur.execute("SELECT * FROM tbl_user WHERE username = %s", (username,))
-                    existing_user = cur.fetchone()
-                    
-                    if existing_user:
-                        message = "❌ Username already taken. Please choose another."
-                    else:
-                        # Hash password and save to database
-                        hashed_password = generate_password_hash(password)
-                        cur.execute(
-                            "INSERT INTO tbl_user (username, password) VALUES (%s, %s)",
-                            (username, hashed_password)
-                        )
-                        connection.commit()
+                # Get database connection
+                connection = get_db_connection()
+                try:
+                    with connection.cursor() as cur:
+                        # Check if username already exists
+                        cur.execute("SELECT * FROM tbl_user WHERE username = %s", (username,))
+                        existing_user = cur.fetchone()
                         
-                        session.pop('_flashes', None)
-                        flash(f"✅ Account created successfully! Welcome {username}!")
-                        return redirect(url_for('signin'))
+                        if existing_user:
+                            message = "❌ Username already taken. Please choose another."
+                        else:
+                            # Hash password and save to database
+                            hashed_password = generate_password_hash(password)
+                            cur.execute(
+                                "INSERT INTO tbl_user (username, password) VALUES (%s, %s)",
+                                (username, hashed_password)
+                            )
+                            connection.commit()
+                            
+                            session.pop('_flashes', None)
+                            flash(f"✅ Account created successfully! Welcome {username}!")
+                            return redirect(url_for('signin'))
+                except Exception as e:
+                    print(f"❌ Database query error: {str(e)}", file=sys.stderr)
+                    message = f"❌ Database error: {str(e)}"
+                finally:
+                    connection.close()
             except Exception as e:
-                message = f"❌ Database error: {str(e)}"
-            finally:
-                connection.close()
+                print(f"❌ Connection error: {str(e)}", file=sys.stderr)
+                message = "❌ Could not connect to database. Please try again later."
     
     return render_template('signup.html', message=message)
 
@@ -96,37 +108,36 @@ def signup():
 def signin():
     error = None
     
-    # If user is already logged in, redirect to dashboard
     if 'user_id' in session:
         return redirect(url_for('dashboard'))
     
     if request.method == 'POST':
-        # Clear old flash messages
         session.pop('_flashes', None)
-        
         username = request.form['username'].strip()
         password = request.form['password']
         
-        # Get database connection
-        connection = get_db_connection()
         try:
-            with connection.cursor() as cur:
-                # Check if username exists
-                cur.execute("SELECT * FROM tbl_user WHERE username = %s", (username,))
-                user = cur.fetchone()
-                
-                if user and check_password_hash(user['password'], password):
-                    # Login successful - create session
-                    session['user_id'] = user['id']
-                    session['username'] = user['username']
-                    flash(f"Welcome back, {user['username']}! 🎉")
-                    return redirect(url_for('dashboard'))
-                else:
-                    error = "❌ Invalid username or password. Please try again."
+            connection = get_db_connection()
+            try:
+                with connection.cursor() as cur:
+                    cur.execute("SELECT * FROM tbl_user WHERE username = %s", (username,))
+                    user = cur.fetchone()
+                    
+                    if user and check_password_hash(user['password'], password):
+                        session['user_id'] = user['id']
+                        session['username'] = user['username']
+                        flash(f"Welcome back, {user['username']}! 🎉")
+                        return redirect(url_for('dashboard'))
+                    else:
+                        error = "❌ Invalid username or password. Please try again."
+            except Exception as e:
+                print(f"❌ Database query error: {str(e)}", file=sys.stderr)
+                error = "❌ Database error. Please try again."
+            finally:
+                connection.close()
         except Exception as e:
-            error = f"❌ Database error: {str(e)}"
-        finally:
-            connection.close()
+            print(f"❌ Connection error: {str(e)}", file=sys.stderr)
+            error = "❌ Could not connect to database. Please try again later."
     
     return render_template('signin.html', error=error)
 
@@ -148,20 +159,36 @@ def dashboard():
         flash("Please sign in to view your dashboard.")
         return redirect(url_for('signin'))
     
-    # Get database connection
-    connection = get_db_connection()
     try:
-        with connection.cursor() as cur:
-            # Get user info from database
-            cur.execute("SELECT * FROM tbl_user WHERE id = %s", (session['user_id'],))
-            user = cur.fetchone()
-            return render_template('dashboard.html', user=user)
+        connection = get_db_connection()
+        try:
+            with connection.cursor() as cur:
+                cur.execute("SELECT * FROM tbl_user WHERE id = %s", (session['user_id'],))
+                user = cur.fetchone()
+                return render_template('dashboard.html', user=user)
+        except Exception as e:
+            print(f"❌ Dashboard query error: {str(e)}", file=sys.stderr)
+            flash("❌ Could not load dashboard. Please try again.")
+            return redirect(url_for('home'))
+        finally:
+            connection.close()
     except Exception as e:
-        flash(f"❌ Error: {str(e)}")
+        print(f"❌ Connection error: {str(e)}", file=sys.stderr)
+        flash("❌ Could not connect to database. Please try again later.")
         return redirect(url_for('home'))
-    finally:
-        connection.close()
 
+
+@app.route('/test-db')
+def test_db():
+    try:
+        connection = get_db_connection()
+        with connection.cursor() as cur:
+            cur.execute("SELECT 1")
+            result = cur.fetchone()
+        connection.close()
+        return "✅ Database connection successful!"
+    except Exception as e:
+        return f"❌ Database connection failed: {str(e)}"
 # ============================================
 # RUN APP
 # ============================================
