@@ -1,0 +1,476 @@
+/* ============================================
+   SIGNUP PAGE
+   ============================================ */
+
+.signup-section {
+  padding: 40px 0 80px;
+  min-height: 80vh;
+  background-color: var(--bg-secondary);
+  transition: background-color 0.3s ease;
+}
+
+.signup-card {
+  background: var(--card-bg);
+  border-radius: 25px;
+  padding: 50px 45px;
+  box-shadow: 0 15px 50px var(--shadow-color);
+  transition: all 0.3s ease;
+  border: 2px solid transparent;
+}
+
+.signup-card:hover {
+  border-color: var(--miva-red);
+}
+
+/* Signup Header */
+.signup-header {
+  text-align: center;
+  margin-bottom: 35px;
+}
+
+.signup-icon {
+  width: 70px;
+  height: 70px;
+  background: linear-gradient(135deg, var(--miva-red) 0%, #c92a2a 100%);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2.2rem;
+  color: white;
+  margin: 0 auto 15px;
+  box-shadow: 0 8px 25px rgba(228, 59, 49, 0.3);
+}
+
+.signup-title {
+  font-size: 2rem;
+  font-weight: 800;
+  color: var(--text-primary);
+  margin-bottom: 5px;
+  transition: color 0.3s ease;
+}
+
+.signup-subtitle {
+  color: var(--text-secondary);
+  font-size: 1rem;
+  transition: color 0.3s ease;
+}
+
+/* Form Groups */
+.form-group {
+  margin-bottom: 22px;
+}
+
+.form-label {
+  font-weight: 600;
+  color: var(--text-primary);
+  margin-bottom: 8px;
+  transition: color 0.3s ease;
+}
+
+.form-label i {
+  color: var(--miva-red);
+}
+
+.form-control {
+  background-color: var(--bg-secondary);
+  border: 2px solid var(--shadow-color);
+  color: var(--text-primary);
+  padding: 12px 15px;
+  border-radius: 12px;
+  transition: all 0.3s ease;
+}
+
+.form-control:focus {
+  border-color: var(--miva-red);
+  box-shadow: 0 0 0 0.2rem rgba(228, 59, 49, 0.25);
+  background-color: var(--bg-secondary);
+  color: var(--text-primary);
+}
+
+.input-group-text {
+  background-color: var(--bg-secondary);
+  border: 2px solid var(--shadow-color);
+  border-right: none;
+  color: var(--text-secondary);
+  border-radius: 12px 0 0 12px;
+}
+
+.input-group .form-control {
+  border-radius: 0 12px 12px 0;
+  border-left: none;
+}
+
+/* Password Toggle Button */
+#togglePassword,
+#toggleConfirmPassword {
+  border: 2px solid var(--shadow-color);
+  border-left: none;
+  border-radius: 0 12px 12px 0;
+  background-color: var(--bg-secondary);
+  color: var(--text-secondary);
+  transition: all 0.3s ease;
+}
+
+#togglePassword:hover,
+#toggleConfirmPassword:hover {
+  background-color: var(--bg-secondary);
+  color: var(--miva-red);
+  border-color: var(--miva-red);
+}
+
+/* ============================================
+   PASSWORD STRENGTH METER
+   ============================================ */
+
+.password-strength-container {
+  margin-top: 10px;
+  margin-bottom: 20px;
+}
+
+.strength-meter {
+  width: 100%;
+  height: 6px;
+  background-color: var(--bg-secondary);
+  border-radius: 50px;
+  overflow: hidden;
+  margin-bottom: 5px;
+}
+
+.strength-bar {
+  height: 100%;
+  width: 0%;
+  background-color: #e9ecef;
+  border-radius: 50px;
+  transition: all 0.3s ease;
+}
+
+.strength-label {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+}
+
+#strengthText {
+  font-weight: 600;
+  transition: color 0.3s ease;
+}
+
+#strengthScore {
+  font-weight: 600;
+}
+
+/* ============================================
+   PASSWORD REQUIREMENTS
+   ============================================ */
+
+.password-requirements {
+  background: var(--bg-secondary);
+  border-radius: 12px;
+  padding: 15px 20px;
+  margin-bottom: 20px;
+  transition: background-color 0.3s ease;
+}
+
+.requirements-title {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+  margin-bottom: 8px;
+}
+
+.requirements-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.requirements-list li {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 4px 0;
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+  transition: all 0.3s ease;
+}
+
+.requirements-list li i {
+  font-size: 1rem;
+  transition: all 0.3s ease;
+}
+
+.requirements-list li.met {
+  color: #28a745;
+}
+
+.requirements-list li.met i {
+  color: #28a745;
+}
+
+/* ============================================
+   PASSWORD MATCH
+   ============================================ */
+
+.password-match {
+  display: none;
+  align-items: center;
+  gap: 8px;
+  margin-top: 8px;
+  font-size: 0.9rem;
+  font-weight: 500;
+  transition: all 0.3s ease;
+}
+
+.password-match i {
+  font-size: 1.1rem;
+}
+
+/* ============================================
+   SIGNUP BUTTON
+   ============================================ */
+
+.btn-signup {
+  width: 100%;
+  padding: 14px;
+  font-size: 1.1rem;
+  font-weight: 700;
+  background: linear-gradient(135deg, var(--miva-red) 0%, #c92a2a 100%);
+  color: white;
+  border: none;
+  border-radius: 12px;
+  transition: all 0.3s ease;
+  margin-top: 10px;
+}
+
+.btn-signup:hover:not(:disabled) {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 30px rgba(228, 59, 49, 0.4);
+  color: white;
+}
+
+.btn-signup:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.btn-signup:active {
+  transform: scale(0.98);
+}
+
+/* ============================================
+   SIGNUP FOOTER
+   ============================================ */
+
+.signup-footer {
+  text-align: center;
+  margin-top: 20px;
+}
+
+.signup-footer p {
+  color: var(--text-secondary);
+  margin: 0;
+}
+
+.login-link {
+  color: var(--miva-red);
+  font-weight: 600;
+  text-decoration: none;
+  transition: all 0.3s ease;
+}
+
+.login-link:hover {
+  text-decoration: underline;
+  color: #c92a2a;
+}
+
+/* ============================================
+   RESPONSIVE SIGNUP
+   ============================================ */
+
+@media (max-width: 768px) {
+  .signup-section {
+    padding: 20px 0 50px;
+  }
+
+  .signup-card {
+    padding: 30px 20px;
+    border-radius: 20px;
+  }
+
+  .signup-title {
+    font-size: 1.5rem;
+  }
+
+  .signup-icon {
+    width: 55px;
+    height: 55px;
+    font-size: 1.8rem;
+  }
+
+  .form-control {
+    padding: 10px 12px;
+  }
+
+  .requirements-list li {
+    font-size: 0.8rem;
+  }
+}
+
+@media (max-width: 576px) {
+  .signup-card {
+    padding: 20px 15px;
+  }
+
+  .signup-title {
+    font-size: 1.3rem;
+  }
+
+  .btn-signup {
+    padding: 12px;
+    font-size: 1rem;
+  }
+}
+
+/* ============================================
+   DARK MODE SPECIFIC FOR SIGNUP
+   ============================================ */
+
+body.dark-mode .signup-card {
+  background: var(--card-bg);
+}
+
+body.dark-mode .form-control {
+  background-color: var(--bg-secondary);
+  color: var(--text-primary);
+}
+
+body.dark-mode .password-requirements {
+  background: var(--bg-secondary);
+}
+
+body.dark-mode .requirements-list li {
+  color: var(--text-secondary);
+}
+
+body.dark-mode .requirements-list li.met {
+  color: #28a745;
+}
+
+body.dark-mode .strength-meter {
+  background-color: var(--bg-secondary);
+}
+
+body.dark-mode .signup-icon {
+  box-shadow: 0 8px 25px rgba(228, 59, 49, 0.3);
+}
+
+/* ============================================
+   MIVA SIGN IN BUTTON
+   ============================================ */
+
+.btn-miva-signin {
+  background: transparent;
+  color: var(--miva-dark-blue);
+  border: 2px solid var(--miva-dark-blue);
+  padding: 8px 22px;
+  border-radius: 50px;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.btn-miva-signin:hover {
+  background: var(--miva-dark-blue);
+  color: white;
+  transform: scale(1.05);
+  box-shadow: 0 4px 15px rgba(9, 49, 79, 0.3);
+}
+
+/* Dark mode - Sign In button */
+body.dark-mode .btn-miva-signin {
+  color: white;
+  border-color: white;
+}
+
+body.dark-mode .btn-miva-signin:hover {
+  background: white;
+  color: var(--miva-dark-blue);
+}
+
+/* ============================================
+   MIVA LOGOUT BUTTON
+   ============================================ */
+
+.btn-miva-logout {
+  background: transparent;
+  color: var(--miva-red);
+  border: 2px solid var(--miva-red);
+  padding: 8px 22px;
+  border-radius: 50px;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.btn-miva-logout:hover {
+  background: var(--miva-red);
+  color: white;
+  transform: scale(1.05);
+  box-shadow: 0 4px 15px rgba(228, 59, 49, 0.3);
+}
+
+/* Dark mode - Logout button (same, red is visible in both) */
+body.dark-mode .btn-miva-logout {
+  color: var(--miva-red);
+  border-color: var(--miva-red);
+}
+
+body.dark-mode .btn-miva-logout:hover {
+  background: var(--miva-red);
+  color: white;
+}
+
+/* ============================================
+   MIVA PRIMARY BUTTON (Sign Up - already have)
+   ============================================ */
+
+.btn-miva-primary {
+  background-color: var(--miva-red);
+  color: white;
+  border: 2px solid var(--miva-red);
+  padding: 8px 22px;
+  border-radius: 50px;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.btn-miva-primary:hover {
+  background-color: transparent;
+  color: var(--miva-red);
+  border-color: var(--miva-red);
+  transform: scale(1.05);
+}
+
+/* Dark mode - Sign Up button */
+body.dark-mode .btn-miva-primary {
+  background-color: var(--miva-red);
+  color: white;
+}
+
+body.dark-mode .btn-miva-primary:hover {
+  background-color: transparent;
+  color: var(--miva-red);
+}
