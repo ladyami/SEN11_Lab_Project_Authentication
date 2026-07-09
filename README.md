@@ -164,8 +164,6 @@ Live URL:
 
 https://sen-11-lab-project-authentication.vercel.app/
 
----
-
 
 
 ---
